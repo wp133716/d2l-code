@@ -29,7 +29,7 @@ class Animator:  #@save
         # 增量地绘制多条线
         if legend is None:
             legend = []
-        d2l.use_svg_display()
+        d2l.use_svg_display()        
         self.fig, self.axes = d2l.plt.subplots(nrows, ncols, figsize=figsize)
         if nrows * ncols == 1:
             self.axes = [self.axes, ]
@@ -57,6 +57,7 @@ class Animator:  #@save
         for x, y, fmt in zip(self.X, self.Y, self.fmts):
             self.axes[0].plot(x, y, fmt)
         self.config_axes()
+        d2l.plt.pause(0.05)
         display.display(self.fig)
         display.clear_output(wait=True)
 
@@ -143,9 +144,9 @@ def predict_ch3(net, test_iter, n=6):  #@save
 if __name__ == "__main__":
     batch_size = 256
     train_iter, test_iter = d2l.load_data_fashion_mnist(batch_size, root="../../data")
-    print(len(train_iter))
-    print(len(test_iter))
-    print(os.getcwd())
+    # print(len(train_iter))
+    # print(len(test_iter))
+    # print(os.getcwd())
 
 
     # 初始化模型
@@ -157,7 +158,9 @@ if __name__ == "__main__":
 
     lr = 0.1
     num_epochs = 10
+    # plt.ion()
     train_ch3(net, train_iter, test_iter, cross_entropy, num_epochs, updater)
     
     predict_ch3(net, test_iter)
+    # plt.ioff()
     plt.show()
